@@ -1,7 +1,10 @@
 from datetime import datetime
+from wsgiref.validate import validator
 from flask_wtf import Form
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
-from wtforms.validators import DataRequired, AnyOf, URL
+from wtforms_alchemy import PhoneNumberField
+from wtforms.validators import DataRequired, AnyOf, URL, Optional
+
 
 class ShowForm(Form):
     artist_id = StringField(
@@ -82,11 +85,11 @@ class VenueForm(Form):
     address = StringField(
         'address', validators=[DataRequired()]
     )
-    phone = StringField(
-        'phone'
+    phone = PhoneNumberField(
+        'phone', validators=[DataRequired()]
     )
     image_link = StringField(
-        'image_link'
+        'image_link', validators=[Optional(), URL()]
     )
     genres = SelectMultipleField(
         # TODO implement enum restriction
@@ -114,10 +117,10 @@ class VenueForm(Form):
         ]
     )
     facebook_link = StringField(
-        'facebook_link', validators=[URL()]
+        'facebook_link', validators=[Optional(), URL()]
     )
     website_link = StringField(
-        'website_link'
+        'website_link', validators=[Optional(), URL()]
     )
 
     seeking_talent = BooleanField( 'seeking_talent' )
@@ -191,12 +194,12 @@ class ArtistForm(Form):
             ('WY', 'WY'),
         ]
     )
-    phone = StringField(
+    phone = PhoneNumberField(
         # TODO implement validation logic for state
-        'phone'
+        'phone', validators=[DataRequired()]
     )
     image_link = StringField(
-        'image_link'
+        'image_link', validators=[Optional(), URL()]
     )
     genres = SelectMultipleField(
         'genres', validators=[DataRequired()],
@@ -221,19 +224,19 @@ class ArtistForm(Form):
             ('Soul', 'Soul'),
             ('Other', 'Other'),
         ]
-     )
+    )
     facebook_link = StringField(
         # TODO implement enum restriction
-        'facebook_link', validators=[URL()]
-     )
+        'facebook_link', validators=[Optional(), URL()]
+    )
 
     website_link = StringField(
-        'website_link'
-     )
+        'website_link', validators=[Optional(), URL()]
+    )
 
     seeking_venue = BooleanField( 'seeking_venue' )
 
     seeking_description = StringField(
             'seeking_description'
-     )
+    )
 
