@@ -1,8 +1,8 @@
 from datetime import datetime
 from wsgiref.validate import validator
 from flask_wtf import Form
-from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
-from wtforms_alchemy import PhoneNumberField
+from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField, IntegerField
+# from wtforms_alchemy import PhoneNumberField
 from wtforms.validators import DataRequired, AnyOf, URL, Optional
 
 
@@ -85,7 +85,7 @@ class VenueForm(Form):
     address = StringField(
         'address', validators=[DataRequired()]
     )
-    phone = PhoneNumberField(
+    phone = IntegerField(
         'phone', validators=[DataRequired()]
     )
     image_link = StringField(
@@ -194,7 +194,7 @@ class ArtistForm(Form):
             ('WY', 'WY'),
         ]
     )
-    phone = PhoneNumberField(
+    phone = IntegerField(
         # TODO implement validation logic for state
         'phone', validators=[DataRequired()]
     )
